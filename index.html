@@ -3,119 +3,119 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Avis clients — Reviews</title>
+<title>Avis clients — LUMINELLE LAB</title>
+
+<!-- Poppins -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-  /* =========================================================
-     LUMINELLE LAB — REVIEWS
-     GitHub iframe page
-     ========================================================= */
-
   :root{
-    --bg:      #fafaf8;
-    --primary: #2bb3f3;
-    --text:    #111111;
-    --muted:   #4a4a4a;
-    --card:    #ffffff;
-    --star:    #f7b731;
+    --lum-blue:       #2BB3F3;
+    --lum-blue-light: #6BCDF9;
+    --lum-blue-deep:  #1898D6;
+    --lum-ink:        #14161A;
+    --lum-muted:      #6E6E73;
+    --lum-bg:         #FAFAF8;
+    --lum-card:       #FFFFFF;
+    --lum-star:       #F7B731;
   }
 
-  *,
-  *::before,
-  *::after{
-    box-sizing:border-box;
-  }
+  *, *::before, *::after{ box-sizing: border-box; }
 
-  html,
-  body{
-    margin:0;
-    padding:0;
-    width:100%;
-    min-height:100%;
+  html, body{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
   }
 
   body{
-    background:var(--bg);
-    color:var(--text);
-    font-family:
-      -apple-system,
-      BlinkMacSystemFont,
-      "Segoe UI",
-      Roboto,
-      "Helvetica Neue",
-      Arial,
-      "Noto Sans",
-      "Noto Sans Arabic",
-      Tahoma,
-      sans-serif;
-    overflow-x:hidden;
+    background: var(--lum-bg);
+    color: var(--lum-ink);
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont,
+                 "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
   }
-
 
   /* =========================================================
-     REVIEWS SECTION
+     SECTION
      ========================================================= */
 
   .reviews{
-    width:100%;
-    padding:15px 0;
-    overflow:hidden;
+    position: relative;
+    isolation: isolate;
+    width: 100%;
+    padding: 20px 0;
+    overflow: hidden;
   }
 
+  .reviews::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 60% at 50% 40%,
+        rgba(43, 179, 243, 0.055) 0%,
+        rgba(43, 179, 243, 0.012) 42%,
+        transparent 72%);
+    pointer-events: none;
+    z-index: -1;
+  }
 
   /* =========================================================
-     TRACK
+     TRACK — small padding + center snap
      ========================================================= */
 
   .reviews-track{
-    display:flex;
-    gap:24px;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    gap: 20px;
 
-    overflow-x:auto;
+    overflow-x: auto;
 
-    padding:
-      12px
-      max(20px, calc(50% - min(420px,86vw)/2))
-      25px;
+    /* small padding = no empty gap at start/end */
+    padding: 14px max(24px, 5vw) 28px;
 
-    scroll-snap-type:x mandatory;
-    -webkit-overflow-scrolling:touch;
+    scroll-snap-type: x mandatory;
 
-    overscroll-behavior-x:contain;
-
-    scrollbar-width:none;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
   }
 
-  .reviews-track::-webkit-scrollbar{
-    display:none;
-  }
-
+  .reviews-track::-webkit-scrollbar{ display: none; }
 
   /* =========================================================
-     REVIEW CARD
+     REVIEW CARD — center snap so active is centered
      ========================================================= */
 
   .review-card{
-    flex:0 0 auto;
-    width:min(420px,86vw);
+    flex: 0 0 auto;
+    width: min(400px, 82vw);
 
-    display:flex;
-    flex-direction:column;
+    display: flex;
+    flex-direction: column;
 
-    background:var(--card);
-
-    border-radius:16px;
-
-    border:1px solid #eceae6;
+    background: var(--lum-card);
+    border: 1px solid rgba(20, 22, 26, 0.06);
+    border-radius: 22px;
 
     box-shadow:
-      0 6px 18px rgba(0,0,0,.05);
+      0 1px 2px rgba(20, 22, 26, 0.03),
+      0 10px 30px -14px rgba(24, 152, 214, 0.10);
 
-    opacity:.55;
+    /* ---------- CENTER SNAP ---------- */
+    scroll-snap-align: center;
 
-    transform:scale(.97);
-
-    scroll-snap-align:center;
+    opacity: 0.55;
+    transform: scale(0.97);
+    transform-origin: center center;
 
     transition:
       opacity .35s ease,
@@ -124,1236 +124,713 @@
       box-shadow .35s ease;
   }
 
-
-  /* =========================================================
-     ACTIVE REVIEW
-     ========================================================= */
-
   .review-card.is-active{
-    opacity:1;
-
-    transform:scale(1);
-
-    border-color:
-      rgba(43,179,243,.55);
+    opacity: 1;
+    transform: scale(1);
+    border-color: rgba(43, 179, 243, 0.35);
 
     box-shadow:
-      0 14px 34px rgba(43,179,243,.16),
-      0 3px 10px rgba(0,0,0,.05);
+      0 1px 2px rgba(20, 22, 26, 0.03),
+      0 24px 50px -20px rgba(43, 179, 243, 0.28);
   }
-
 
   /* =========================================================
      CARD BODY
      ========================================================= */
 
   .card-body{
-    padding:28px 28px 24px;
+    padding: 28px 28px 22px;
+    display: flex;
+    flex-direction: column;
   }
 
   .quote{
-    width:38px;
-    height:30px;
-
-    fill:var(--primary);
-
-    opacity:.35;
-
-    margin-bottom:14px;
-
-    display:block;
+    width: 34px;
+    height: 28px;
+    fill: var(--lum-blue);
+    opacity: 0.28;
+    margin-bottom: 16px;
+    display: block;
   }
-
 
   /* =========================================================
      STARS
      ========================================================= */
 
   .stars{
-    position:relative;
-
-    display:inline-block;
-
-    font-size:15px;
-
-    letter-spacing:3px;
-
-    line-height:1;
-
-    color:#dfe3e8;
-
-    margin-bottom:14px;
+    position: relative;
+    display: inline-block;
+    font-size: 15px;
+    letter-spacing: 3px;
+    line-height: 1;
+    color: #E1E4E8;
+    margin-bottom: 16px;
   }
 
-  .stars span{
-    white-space:nowrap;
-  }
+  .stars span{ white-space: nowrap; }
 
   .stars i{
-    position:absolute;
-
-    top:0;
-    bottom:0;
-
-    inset-inline-start:0;
-
-    width:calc(var(--r) / 5 * 100%);
-
-    overflow:hidden;
-
-    white-space:nowrap;
-
-    color:var(--star);
-
-    font-style:normal;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    inset-inline-start: 0;
+    width: calc(var(--r) / 5 * 100%);
+    overflow: hidden;
+    white-space: nowrap;
+    color: var(--lum-star);
+    font-style: normal;
   }
 
+  /* =========================================================
+     META — période
+     ========================================================= */
+
+  .review-meta{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .meta-chip{
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 6px 12px;
+    border-radius: 999px;
+
+    background: rgba(43, 179, 243, 0.06);
+    border: 1px solid rgba(43, 179, 243, 0.14);
+    color: var(--lum-blue-deep);
+
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+
+    white-space: nowrap;
+    max-width: 100%;
+  }
+
+  .meta-chip svg{
+    width: 12px;
+    height: 12px;
+    flex: 0 0 12px;
+    display: block;
+  }
+
+  /* =========================================================
+     PRODUCT NAME
+     ========================================================= */
+
+  .review-product{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    margin: 0 0 16px;
+    padding: 0;
+
+    color: var(--lum-blue-deep);
+
+    font-size: 11.5px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .review-product::before{
+    content: "";
+    width: 6px;
+    height: 6px;
+    flex: 0 0 6px;
+    border-radius: 50%;
+    background: var(--lum-blue);
+    box-shadow:
+      0 0 0 1px rgba(43, 179, 243, 0.30),
+      0 0 8px rgba(43, 179, 243, 0.45);
+  }
 
   /* =========================================================
      REVIEW TEXT
      ========================================================= */
 
   .review-text{
-    margin:0;
-
-    font-size:16px;
-
-    line-height:1.75;
-
-    color:var(--muted);
-
-    text-align:left;
-
-    overflow-wrap:break-word;
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.75;
+    font-weight: 300;
+    letter-spacing: 0.005em;
+    color: var(--lum-muted);
+    text-align: left;
+    overflow-wrap: break-word;
   }
-
 
   /* =========================================================
      CARD FOOTER
      ========================================================= */
 
   .card-foot{
-    margin-top:auto;
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    gap: 14px;
 
-    display:flex;
+    padding: 16px 28px;
 
-    align-items:center;
-
-    gap:14px;
-
-    padding:15px 28px;
-
-    background:#f6f8fc;
-
-    border-top:1px solid #eef1f5;
-
-    border-radius:
-      0 0 16px 16px;
+    background: rgba(43, 179, 243, 0.035);
+    border-top: 1px solid rgba(20, 22, 26, 0.05);
+    border-radius: 0 0 22px 22px;
   }
 
   .avatar{
-    width:52px;
-    height:52px;
-
-    border-radius:50%;
-
-    object-fit:cover;
-
-    flex:0 0 auto;
-
-    background:#e8ecf2;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex: 0 0 auto;
+    background: rgba(43, 179, 243, 0.08);
+    border: 1px solid rgba(43, 179, 243, 0.14);
   }
 
   .who{
-    display:flex;
-
-    flex-direction:column;
-
-    gap:2px;
-
-    min-width:0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
   }
 
   .name{
-    margin:0;
-
-    font-size:16.5px;
-
-    font-weight:700;
-
-    color:var(--text);
+    margin: 0;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: -0.05px;
+    color: var(--lum-ink);
   }
 
   .city{
-    font-size:14px;
-
-    color:var(--primary);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--lum-muted);
+    letter-spacing: 0.02em;
   }
 
+  .city::before{
+    content: "";
+    width: 5px;
+    height: 5px;
+    flex: 0 0 5px;
+    border-radius: 50%;
+    background: var(--lum-blue);
+    box-shadow:
+      0 0 0 1px rgba(43, 179, 243, 0.30),
+      0 0 6px rgba(43, 179, 243, 0.45);
+  }
 
   /* =========================================================
      NAVIGATION
      ========================================================= */
 
   .reviews-nav{
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    gap:22px;
-
-    margin-top:8px;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 22px;
+    margin-top: 4px;
   }
 
   .nav-btn{
-    width:44px;
-    height:44px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid rgba(20, 22, 26, 0.06);
+    cursor: pointer;
 
-    border-radius:50%;
-
-    border:0;
-
-    cursor:pointer;
-
-    background:#fff;
-
-    color:var(--primary);
+    background: #FFFFFF;
+    color: var(--lum-blue-deep);
 
     box-shadow:
-      0 4px 12px rgba(0,0,0,.08);
+      0 1px 2px rgba(20, 22, 26, 0.04),
+      0 8px 20px -10px rgba(24, 152, 214, 0.20);
 
-    display:grid;
-
-    place-items:center;
+    display: grid;
+    place-items: center;
 
     transition:
-      background .25s,
-      color .25s,
-      transform .2s;
+      background .25s ease,
+      color .25s ease,
+      border-color .25s ease,
+      transform .2s ease;
   }
 
   .nav-btn:hover{
-    background:var(--primary);
-    color:#fff;
+    background: var(--lum-blue);
+    border-color: var(--lum-blue);
+    color: #FFFFFF;
   }
 
-  .nav-btn:active{
-    transform:scale(.94);
-  }
+  .nav-btn:active{ transform: scale(0.94); }
 
   .nav-btn svg{
-    width:18px;
-    height:18px;
-
-    fill:none;
-
-    stroke:currentColor;
-
-    stroke-width:2.4;
-
-    stroke-linecap:round;
-    stroke-linejoin:round;
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
   }
-
 
   /* =========================================================
      DOTS
      ========================================================= */
 
   .reviews-dots{
-    display:flex;
-
-    gap:10px;
-
-    align-items:center;
+    display: flex;
+    gap: 10px;
+    align-items: center;
   }
 
   .dot{
-    width:9px;
-    height:9px;
-
-    border-radius:50%;
-
-    border:0;
-
-    padding:0;
-
-    background:#cfd4da;
-
-    cursor:pointer;
-
-    transition:
-      transform .25s,
-      background .25s;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    border: 0;
+    padding: 0;
+    background: rgba(20, 22, 26, 0.16);
+    cursor: pointer;
+    transition: transform .25s ease, background .25s ease, box-shadow .25s ease;
   }
 
   .dot.is-active{
-    background:var(--primary);
-
-    transform:scale(1.25);
+    background: var(--lum-blue);
+    transform: scale(1.3);
+    box-shadow:
+      0 0 0 1px rgba(43, 179, 243, 0.30),
+      0 0 10px rgba(43, 179, 243, 0.55);
   }
-
 
   /* =========================================================
-     REDUCED MOTION
+     RESPONSIVE
      ========================================================= */
 
-  @media (prefers-reduced-motion:reduce){
-
-    *,
-    *::before,
-    *::after{
-      transition:none!important;
-      scroll-behavior:auto!important;
+  @media (max-width: 720px){
+    .reviews-track{
+      gap: 16px;
+      padding: 14px 20px 28px;
     }
 
+    .card-body{ padding: 24px 22px 20px; }
+
+    .card-foot{ padding: 14px 22px; }
+
+    .review-text{ font-size: 14.5px; }
+
+    .meta-chip{
+      font-size: 10px;
+      padding: 5px 10px;
+      letter-spacing: 0.06em;
+    }
+
+    .meta-chip svg{ width: 11px; height: 11px; flex: 0 0 11px; }
+
+    .review-product{
+      font-size: 11px;
+      letter-spacing: 0.12em;
+    }
   }
 
+  @media (max-width: 400px){
+    .reviews-track{
+      gap: 14px;
+      padding: 12px 16px 24px;
+    }
+
+    .review-card{ width: min(340px, 84vw); }
+
+    .card-body{ padding: 22px 20px 18px; }
+
+    .card-foot{ padding: 13px 20px; gap: 12px; }
+
+    .avatar{ width: 44px; height: 44px; }
+
+    .name{ font-size: 14.5px; }
+
+    .city{ font-size: 11.5px; }
+
+    .review-text{ font-size: 14px; line-height: 1.7; }
+
+    .meta-chip{
+      font-size: 9.5px;
+      letter-spacing: 0.04em;
+      padding: 5px 9px;
+      gap: 6px;
+    }
+
+    .review-product{
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      margin-bottom: 14px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *, *::before, *::after{
+      transition: none !important;
+      scroll-behavior: auto !important;
+    }
+  }
 </style>
 </head>
 
-
 <body>
 
-<section
-  class="reviews"
-  aria-label="Avis clients"
->
+<section class="reviews" aria-label="Avis clients">
 
+  <div class="reviews-track" id="reviews-track" dir="ltr">
 
-  <!-- =======================================================
-       REVIEWS TRACK
-       ======================================================= -->
-
-  <div
-    class="reviews-track"
-    id="reviews-track"
-    dir="ltr"
-  >
-
-
-    <!-- =====================================================
-         CARD 1
-         ===================================================== -->
-
-    <article
-      class="review-card"
-      dir="ltr"
-    >
-
+    <article class="review-card" dir="ltr">
       <div class="card-body">
-
-        <svg
-          class="quote"
-          viewBox="0 0 40 32"
-          aria-hidden="true"
-        >
+        <svg class="quote" viewBox="0 0 40 32" aria-hidden="true">
           <path d="M16 0C7.2 0 0 7.2 0 16v16h16V16H8c0-4.4 3.6-8 8-8V0z"/>
-          <path
-            d="M16 0C7.2 0 0 7.2 0 16v16h16V16H8c0-4.4 3.6-8 8-8V0z"
-            transform="translate(24 0)"
-          />
+          <path d="M16 0C7.2 0 0 7.2 0 16v16h16V16H8c0-4.4 3.6-8 8-8V0z" transform="translate(24 0)"/>
         </svg>
-
-
-        <div
-          class="stars"
-          style="--r:5"
-          role="img"
-          aria-label="Note : 5 sur 5"
-        >
+        <div class="stars" style="--r:5" role="img" aria-label="Note : 5 sur 5">
           <span aria-hidden="true">★★★★★</span>
           <i aria-hidden="true">★★★★★</i>
         </div>
-
-
-        <p
-          class="review-text"
-          dir="auto"
-        >
+        <div class="review-meta">
+          <span class="meta-chip">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M12 7.5V12l3 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>4 mois d'utilisation</span>
+          </span>
+        </div>
+        <span class="review-product">Routine DermaCare</span>
+        <p class="review-text" dir="auto">
           C’est un super produit avec une équipe de support professionnelle.
           J’ai hâte de découvrir les futures fonctionnalités.
         </p>
-
       </div>
-
-
       <footer class="card-foot">
-
-        <img
-          class="avatar"
-          src="https://i.postimg.cc/8JnLS6bv/Review-Avatar-1.webp"
-          alt="Photo de Emily Peterson"
-          width="52"
-          height="52"
-          loading="lazy"
-          decoding="async"
-        >
-
+        <img class="avatar" src="https://i.postimg.cc/8JnLS6bv/Review-Avatar-1.webp"
+             alt="Photo de Samira" width="48" height="48" loading="lazy" decoding="async">
         <div class="who">
-
-          <h3 class="name">
-            Samira
-          </h3>
-
-          <span class="city">
-            Agadir
-          </span>
-
+          <h3 class="name">Samira</h3>
+          <span class="city">Agadir</span>
         </div>
-
       </footer>
-
     </article>
 
-
-    <!-- =====================================================
-         CARD 2
-         ===================================================== -->
-
-    <article
-      class="review-card"
-      dir="ltr"
-    >
-
+    <article class="review-card" dir="ltr">
       <div class="card-body">
-
-        <svg
-          class="quote"
-          viewBox="0 0 40 32"
-          aria-hidden="true"
-        >
+        <svg class="quote" viewBox="0 0 40 32" aria-hidden="true">
           <path d="M16 0C7.2 0 0 7.2 0 16v16h16V16H8c0-4.4 3.6-8 8-8V0z"/>
-          <path
-            d="M16 0C7.2 0 0 7.2 0 16v16h16V16H8c0-4.4 3.6-8 8-8V0z"
-            transform="translate(24 0)"
-          />
+          <path d="M16 0C7.2 0 0 7.2 0 16v16h16V16H8c0-4.4 3.6-8 8-8V0z" transform="translate(24 0)"/>
         </svg>
-
-
-        <div
-          class="stars"
-          style="--r:5"
-          role="img"
-          aria-label="Note : 5 sur 5"
-        >
+        <div class="stars" style="--r:5" role="img" aria-label="Note : 5 sur 5">
           <span aria-hidden="true">★★★★★</span>
           <i aria-hidden="true">★★★★★</i>
         </div>
-
-
-        <p
-          class="review-text"
-          lang="ar"
-          dir="auto"
-        >
+        <div class="review-meta">
+          <span class="meta-chip">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M12 7.5V12l3 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>3 mois d'utilisation</span>
+          </span>
+        </div>
+        <span class="review-product">Routine DermaCare</span>
+        <p class="review-text" lang="ar" dir="auto">
           منتج رائع مع فريق دعم محترف. أتطلع بشغف لرؤية الميزات المستقبلية.
         </p>
-
       </div>
-
-
       <footer class="card-foot">
-
-        <img
-          class="avatar"
-          src="https://i.postimg.cc/ftgYN9vX/Review-Avatar-2.webp"
-          alt="Photo de Reda El Amrani"
-          width="52"
-          height="52"
-          loading="lazy"
-          decoding="async"
-        >
-
+        <img class="avatar" src="https://i.postimg.cc/ftgYN9vX/Review-Avatar-2.webp"
+             alt="Photo de Roaa" width="48" height="48" loading="lazy" decoding="async">
         <div class="who">
-
-          <h3 class="name">
-            Roaa
-          </h3>
-
-          <span class="city">
-            Casablanca
-          </span>
-
+          <h3 class="name">Roaa</h3>
+          <span class="city">Casablanca</span>
         </div>
-
       </footer>
-
     </article>
 
-
-    <!-- =====================================================
-         CARD 3
-         ===================================================== -->
-
-    <article
-      class="review-card"
-      dir="ltr"
-    >
-
+    <article class="review-card" dir="ltr">
       <div class="card-body">
-
-        <svg
-          class="quote"
-          viewBox="0 0 40 32"
-          aria-hidden="true"
-        >
+        <svg class="quote" viewBox="0 0 40 32" aria-hidden="true">
           <path d="M16 0C7.2 0 0 7.2 0 16v16h16V16H8c0-4.4 3.6-8 8-8V0z"/>
-          <path
-            d="M16 0C7.2 0 0 7.2 0 16v16h16V16H8c0-4.4 3.6-8 8-8V0z"
-            transform="translate(24 0)"
-          />
+          <path d="M16 0C7.2 0 0 7.2 0 16v16h16V16H8c0-4.4 3.6-8 8-8V0z" transform="translate(24 0)"/>
         </svg>
-
-
-        <div
-          class="stars"
-          style="--r:4.5"
-          role="img"
-          aria-label="Note : 4,5 sur 5"
-        >
+        <div class="stars" style="--r:4.5" role="img" aria-label="Note : 4,5 sur 5">
           <span aria-hidden="true">★★★★★</span>
           <i aria-hidden="true">★★★★★</i>
         </div>
-
-
-        <p
-          class="review-text"
-          dir="auto"
-        >
+        <div class="review-meta">
+          <span class="meta-chip">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M12 7.5V12l3 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>6 mois d'utilisation</span>
+          </span>
+        </div>
+        <span class="review-product">Routine DermaCare</span>
+        <p class="review-text" dir="auto">
           Le meilleur outil pour exporter et obtenir les bons résultats,
           rapidement et gratuitement.
         </p>
-
       </div>
-
-
       <footer class="card-foot">
-
-        <img
-          class="avatar"
-          src="https://i.postimg.cc/k6hWmbyW/Review-Avatar-3.webp"
-          alt="Photo de Siska Valenta"
-          width="52"
-          height="52"
-          loading="lazy"
-          decoding="async"
-        >
-
+        <img class="avatar" src="https://i.postimg.cc/k6hWmbyW/Review-Avatar-3.webp"
+             alt="Photo de Abir" width="48" height="48" loading="lazy" decoding="async">
         <div class="who">
-
-          <h3 class="name">
-            Abir
-          </h3>
-
-          <span class="city">
-            Oujda
-          </span>
-
+          <h3 class="name">Abir</h3>
+          <span class="city">Oujda</span>
         </div>
-
       </footer>
-
     </article>
 
-
-    <!-- =====================================================
-         CARD 4
-         ===================================================== -->
-
-    <article
-      class="review-card"
-      dir="ltr"
-    >
-
+    <article class="review-card" dir="ltr">
       <div class="card-body">
-
-        <svg
-          class="quote"
-          viewBox="0 0 40 32"
-          aria-hidden="true"
-        >
+        <svg class="quote" viewBox="0 0 40 32" aria-hidden="true">
           <path d="M16 0C7.2 0 0 7.2 0 16v16h16V16H8c0-4.4 3.6-8 8-8V0z"/>
-          <path
-            d="M16 0C7.2 0 0 7.2 0 16v16h16V16H8c0-4.4 3.6-8 8-8V0z"
-            transform="translate(24 0)"
-          />
+          <path d="M16 0C7.2 0 0 7.2 0 16v16h16V16H8c0-4.4 3.6-8 8-8V0z" transform="translate(24 0)"/>
         </svg>
-
-
-        <div
-          class="stars"
-          style="--r:5"
-          role="img"
-          aria-label="Note : 5 sur 5"
-        >
+        <div class="stars" style="--r:5" role="img" aria-label="Note : 5 sur 5">
           <span aria-hidden="true">★★★★★</span>
           <i aria-hidden="true">★★★★★</i>
         </div>
-
-
-        <p
-          class="review-text"
-          dir="auto"
-        >
+        <div class="review-meta">
+          <span class="meta-chip">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M12 7.5V12l3 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>2 mois d'utilisation</span>
+          </span>
+        </div>
+        <span class="review-product">Routine DermaCare</span>
+        <p class="review-text" dir="auto">
           Nous cherchions un produit comme celui-ci depuis la création
           de notre entreprise.
         </p>
-
       </div>
-
-
       <footer class="card-foot">
-
-        <img
-          class="avatar"
-          src="https://i.postimg.cc/47Fpg91V/Review-Avatar-4.webp"
-          alt="Photo de Adrien Jacob"
-          width="52"
-          height="52"
-          loading="lazy"
-          decoding="async"
-        >
-
+        <img class="avatar" src="https://i.postimg.cc/47Fpg91V/Review-Avatar-4.webp"
+             alt="Photo de Salma" width="48" height="48" loading="lazy" decoding="async">
         <div class="who">
-
-          <h3 class="name">
-            Salma
-          </h3>
-
-          <span class="city">
-            Rabat
-          </span>
-
+          <h3 class="name">Salma</h3>
+          <span class="city">Rabat</span>
         </div>
-
       </footer>
-
     </article>
 
-
-    <!-- =====================================================
-         CARD 5
-         ===================================================== -->
-
-    <article
-      class="review-card"
-      dir="ltr"
-    >
-
+    <article class="review-card" dir="ltr">
       <div class="card-body">
-
-        <svg
-          class="quote"
-          viewBox="0 0 40 32"
-          aria-hidden="true"
-        >
+        <svg class="quote" viewBox="0 0 40 32" aria-hidden="true">
           <path d="M16 0C7.2 0 0 7.2 0 16v16h16V16H8c0-4.4 3.6-8 8-8V0z"/>
-          <path
-            d="M16 0C7.2 0 0 7.2 0 16v16h16V16H8c0-4.4 3.6-8 8-8V0z"
-            transform="translate(24 0)"
-          />
+          <path d="M16 0C7.2 0 0 7.2 0 16v16h16V16H8c0-4.4 3.6-8 8-8V0z" transform="translate(24 0)"/>
         </svg>
-
-
-        <div
-          class="stars"
-          style="--r:4.5"
-          role="img"
-          aria-label="Note : 4,5 sur 5"
-        >
+        <div class="stars" style="--r:4.5" role="img" aria-label="Note : 4,5 sur 5">
           <span aria-hidden="true">★★★★★</span>
           <i aria-hidden="true">★★★★★</i>
         </div>
-
-
-        <p
-          class="review-text"
-          lang="ar"
-          dir="auto"
-        >
+        <div class="review-meta">
+          <span class="meta-chip">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M12 7.5V12l3 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>5 mois d'utilisation</span>
+          </span>
+        </div>
+        <span class="review-product">Routine DermaCare</span>
+        <p class="review-text" lang="ar" dir="auto">
           خدمة ممتازة وسهلة الاستعمال، أنصح بها بشدة لكل من يبحث
           عن الجودة والاحترافية.
         </p>
-
       </div>
-
-
       <footer class="card-foot">
-
-        <img
-          class="avatar"
-          src="https://i.postimg.cc/Fkd3sHPz/Review-Avatar-5.webp"
-          alt="Photo de Fatima Zahra"
-          width="52"
-          height="52"
-          loading="lazy"
-          decoding="async"
-        >
-
+        <img class="avatar" src="https://i.postimg.cc/Fkd3sHPz/Review-Avatar-5.webp"
+             alt="Photo de Fatima Zahra" width="48" height="48" loading="lazy" decoding="async">
         <div class="who">
-
-          <h3 class="name">
-            Fatima Zahra
-          </h3>
-
-          <span class="city">
-            Mohammedia
-          </span>
-
+          <h3 class="name">Fatima Zahra</h3>
+          <span class="city">Mohammedia</span>
         </div>
-
       </footer>
-
     </article>
 
-
   </div>
-
-
-  <!-- =======================================================
-       NAVIGATION
-       ======================================================= -->
 
   <div class="reviews-nav">
-
-    <button
-      class="nav-btn"
-      id="reviews-prev"
-      aria-label="Avis précédent"
-      type="button"
-    >
-      <svg viewBox="0 0 24 24">
-        <path d="M15 18l-6-6 6-6"/>
-      </svg>
+    <button class="nav-btn" id="reviews-prev" aria-label="Avis précédent" type="button">
+      <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
     </button>
-
-
-    <div
-      class="reviews-dots"
-      id="reviews-dots"
-    ></div>
-
-
-    <button
-      class="nav-btn"
-      id="reviews-next"
-      aria-label="Avis suivant"
-      type="button"
-    >
-      <svg viewBox="0 0 24 24">
-        <path d="M9 6l6 6-6 6"/>
-      </svg>
+    <div class="reviews-dots" id="reviews-dots"></div>
+    <button class="nav-btn" id="reviews-next" aria-label="Avis suivant" type="button">
+      <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
     </button>
-
   </div>
-
 
 </section>
 
-
 <script>
 (function(){
-
   'use strict';
 
+  var track     = document.getElementById('reviews-track');
+  var cards     = Array.prototype.slice.call(track.querySelectorAll('.review-card'));
+  var dotsWrap  = document.getElementById('reviews-dots');
+  var prev      = document.getElementById('reviews-prev');
+  var next      = document.getElementById('reviews-next');
 
-  /* =========================================================
-     ELEMENTS
-     ========================================================= */
-
-  var track =
-    document.getElementById('reviews-track');
-
-  var cards =
-    Array.prototype.slice.call(
-      track.querySelectorAll('.review-card')
-    );
-
-  var dotsWrap =
-    document.getElementById('reviews-dots');
-
-  var prev =
-    document.getElementById('reviews-prev');
-
-  var next =
-    document.getElementById('reviews-next');
-
-
-  var reduce =
-    window.matchMedia(
-      '(prefers-reduced-motion: reduce)'
-    ).matches;
-
-  var behavior =
-    reduce ? 'auto' : 'smooth';
-
-  var current = -1;
-
-
-  /* =========================================================
-     CREATE DOTS
-     ========================================================= */
+  var reduce    = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var behavior  = reduce ? 'auto' : 'smooth';
+  var current   = -1;
 
   cards.forEach(function(card, i){
-
-    var dot =
-      document.createElement('button');
-
+    var dot = document.createElement('button');
     dot.className = 'dot';
-
     dot.type = 'button';
-
-    dot.setAttribute(
-      'aria-label',
-      'Aller à l’avis ' + (i + 1)
-    );
-
-    dot.addEventListener(
-      'click',
-      function(){
-        goTo(i);
-      }
-    );
-
+    dot.setAttribute('aria-label', 'Aller à l’avis ' + (i + 1));
+    dot.addEventListener('click', function(){ goTo(i); });
     dotsWrap.appendChild(dot);
-
   });
 
+  var dots = Array.prototype.slice.call(dotsWrap.children);
 
-  var dots =
-    Array.prototype.slice.call(
-      dotsWrap.children
-    );
-
-
-  /* =========================================================
-     FIND ACTIVE CARD
-     ========================================================= */
-
+  /* ---------- ACTIVE ----------
+     - at scroll extremes → first / last card wins
+     - otherwise → card closest to viewport center wins
+  --------------------------------- */
   function activeIndex(){
+    var maxScroll = track.scrollWidth - track.clientWidth;
 
-    var trackRect =
-      track.getBoundingClientRect();
+    if (maxScroll <= 0) return 0;
+    if (track.scrollLeft <= 2) return 0;
+    if (track.scrollLeft >= maxScroll - 2) return cards.length - 1;
 
-    var mid =
-      trackRect.left +
-      track.clientWidth / 2;
+    var trackRect = track.getBoundingClientRect();
+    var viewportCenter = trackRect.left + track.clientWidth / 2;
 
-    var best = 0;
-
-    var bestDist = Infinity;
-
+    var best = 0, bestDist = Infinity;
 
     cards.forEach(function(card, i){
-
-      var rect =
-        card.getBoundingClientRect();
-
-      var distance =
-        Math.abs(
-          rect.left +
-          rect.width / 2 -
-          mid
-        );
-
-      if(distance < bestDist){
-
-        bestDist = distance;
-        best = i;
-
-      }
-
+      var rect = card.getBoundingClientRect();
+      var d = Math.abs(rect.left + rect.width / 2 - viewportCenter);
+      if(d < bestDist){ bestDist = d; best = i; }
     });
-
 
     return best;
-
   }
 
-
-  /* =========================================================
-     GO TO CARD
-     ========================================================= */
-
+  /* ---------- GO TO ---------- */
   function goTo(i){
-
     var card = cards[i];
-
     if(!card) return;
 
+    var targetScroll = card.offsetLeft - (track.clientWidth - card.offsetWidth) / 2;
 
-    var trackRect =
-      track.getBoundingClientRect();
+    var maxScroll = track.scrollWidth - track.clientWidth;
+    if (targetScroll < 0) targetScroll = 0;
+    if (targetScroll > maxScroll) targetScroll = maxScroll;
 
-    var cardRect =
-      card.getBoundingClientRect();
-
-
-    var left =
-      cardRect.left -
-      trackRect.left +
-      track.scrollLeft -
-      (
-        track.clientWidth -
-        card.offsetWidth
-      ) / 2;
-
-
-    track.scrollTo({
-
-      left:left,
-
-      behavior:behavior
-
-    });
-
+    track.scrollTo({ left: targetScroll, behavior: behavior });
   }
 
-
-  /* =========================================================
-     UPDATE ACTIVE
-     ========================================================= */
-
+  /* ---------- UPDATE ---------- */
   function update(){
-
-    var i =
-      activeIndex();
-
-
-    if(i === current){
-      return;
-    }
-
-
+    var i = activeIndex();
+    if(i === current) return;
     current = i;
 
-
-    cards.forEach(function(card, j){
-
-      card.classList.toggle(
-        'is-active',
-        j === i
-      );
-
-    });
-
-
-    dots.forEach(function(dot, j){
-
-      dot.classList.toggle(
-        'is-active',
-        j === i
-      );
-
-    });
-
-
-    /*
-      Active card can sometimes affect
-      the final layout slightly.
-      Recalculate iframe height.
-    */
+    cards.forEach(function(c, j){ c.classList.toggle('is-active', j === i); });
+    dots.forEach(function(d, j){ d.classList.toggle('is-active', j === i); });
 
     scheduleHeightUpdate();
-
   }
 
-
-  /* =========================================================
-     SCROLL
-     ========================================================= */
-
   var ticking = false;
+  track.addEventListener('scroll', function(){
+    if(ticking) return;
+    ticking = true;
+    requestAnimationFrame(function(){ update(); ticking = false; });
+  }, { passive: true });
 
-
-  track.addEventListener(
-    'scroll',
-    function(){
-
-      if(ticking){
-        return;
-      }
-
-
-      ticking = true;
-
-
-      requestAnimationFrame(function(){
-
-        update();
-
-        ticking = false;
-
-      });
-
-    },
-    {
-      passive:true
-    }
-  );
-
-
-  /* =========================================================
-     BUTTONS
-     ========================================================= */
-
-  prev.addEventListener(
-    'click',
-    function(){
-
-      goTo(
-        Math.max(
-          0,
-          current - 1
-        )
-      );
-
-    }
-  );
-
-
-  next.addEventListener(
-    'click',
-    function(){
-
-      goTo(
-        Math.min(
-          cards.length - 1,
-          current + 1
-        )
-      );
-
-    }
-  );
-
-
-  /* =========================================================
-     INITIAL STATE
-     ========================================================= */
+  prev.addEventListener('click', function(){ goTo(Math.max(0, current - 1)); });
+  next.addEventListener('click', function(){ goTo(Math.min(cards.length - 1, current + 1)); });
 
   update();
-
 
   /* =========================================================
      IFRAME AUTO HEIGHT
      ========================================================= */
 
-  var lastHeight = 0;
-
+  var lastHeight  = 0;
   var heightTimer = null;
 
-
-  /*
-    Calculate the real height of the page.
-  */
-
   function getRealHeight(){
-
-    var body =
-      document.body;
-
-    var html =
-      document.documentElement;
-
+    var body = document.body;
+    var html = document.documentElement;
 
     return Math.max(
-
-      body
-        ? body.scrollHeight
-        : 0,
-
-      body
-        ? body.offsetHeight
-        : 0,
-
-      html
-        ? html.scrollHeight
-        : 0,
-
-      html
-        ? html.offsetHeight
-        : 0,
-
-      html
-        ? html.clientHeight
-        : 0
-
+      body ? body.scrollHeight : 0,
+      body ? body.offsetHeight : 0,
+      html ? html.scrollHeight : 0,
+      html ? html.offsetHeight : 0,
+      html ? html.clientHeight : 0
     );
-
   }
 
-
-  /*
-    Send height to the parent page.
-  */
-
   function sendHeight(){
-
-    var height =
-      getRealHeight();
-
-
-    if(!height || height <= 0){
-      return;
-    }
-
-
-    /*
-      Do not send the same height repeatedly.
-    */
-
-    if(
-      Math.abs(
-        height - lastHeight
-      ) < 1
-    ){
-      return;
-    }
-
+    var height = getRealHeight();
+    if(!height || height <= 0) return;
+    if(Math.abs(height - lastHeight) < 1) return;
 
     lastHeight = height;
 
-
     window.parent.postMessage(
-
-      {
-        type:
-          'luminelleReviewsHeight',
-
-        height:
-          Math.ceil(height)
-      },
-
+      { type: 'luminelleReviewsHeight', height: Math.ceil(height) },
       '*'
-
     );
-
   }
-
-
-  /*
-    Debounced height update.
-  */
 
   function scheduleHeightUpdate(){
-
-    clearTimeout(
-      heightTimer
-    );
-
-
-    heightTimer =
-      setTimeout(
-        sendHeight,
-        30
-      );
-
+    clearTimeout(heightTimer);
+    heightTimer = setTimeout(sendHeight, 30);
   }
 
-
-  /* =========================================================
-     RESIZE OBSERVER
-     ========================================================= */
-
-  if(
-    'ResizeObserver' in window
-  ){
-
-    var resizeObserver =
-      new ResizeObserver(
-        function(){
-
-          scheduleHeightUpdate();
-
-        }
-      );
-
-
-    resizeObserver.observe(
-      document.documentElement
-    );
-
-
-    resizeObserver.observe(
-      document.body
-    );
-
+  if('ResizeObserver' in window){
+    var ro = new ResizeObserver(function(){ scheduleHeightUpdate(); });
+    ro.observe(document.documentElement);
+    ro.observe(document.body);
   }
 
+  window.addEventListener('resize', function(){
+    requestAnimationFrame(function(){
+      update();
+      scheduleHeightUpdate();
+    });
+  });
 
-  /* =========================================================
-     WINDOW RESIZE
-     ========================================================= */
-
-  window.addEventListener(
-    'resize',
-    function(){
-
-      /*
-        Recalculate active card after
-        viewport width changes.
-      */
-
-      requestAnimationFrame(
-        function(){
-
-          update();
-
-          scheduleHeightUpdate();
-
-        }
-      );
-
-    }
-  );
-
-
-  /* =========================================================
-     LOAD
-     ========================================================= */
-
-  window.addEventListener(
-    'load',
-    function(){
-
-      /*
-        Images/fonts/layout may still
-        change the height after load.
-      */
-
-      sendHeight();
-
-
-      setTimeout(
-        sendHeight,
-        100
-      );
-
-
-      setTimeout(
-        sendHeight,
-        300
-      );
-
-
-      setTimeout(
-        sendHeight,
-        700
-      );
-
-    }
-  );
-
-
-  /* =========================================================
-     INITIAL HEIGHT
-     ========================================================= */
+  window.addEventListener('load', function(){
+    sendHeight();
+    setTimeout(sendHeight, 100);
+    setTimeout(sendHeight, 300);
+    setTimeout(sendHeight, 700);
+  });
 
   sendHeight();
-
 
 })();
 </script>
