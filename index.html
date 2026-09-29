@@ -5,488 +5,96 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Avis clients — LUMINELLE LAB</title>
 
-<!-- Roboto -->
+<!-- Preconnect : DNS+TLS mn 9bel l'kol -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://i.postimg.cc">
+<link rel="dns-prefetch" href="https://i.postimg.cc">
+
+<!-- Roboto : gha l'weights li kaystakhdem -->
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-  :root{
-    --lum-blue:       #2BB3F3;
-    --lum-blue-light: #6BCDF9;
-    --lum-blue-deep:  #1898D6;
-    --lum-ink:        #14161A;
-    --lum-muted:      #6E6E73;
-    --lum-bg:         #FAFAF8;
-    --lum-card:       #FFFFFF;
-    --lum-star:       #F7B731;
-  }
-
-  *, *::before, *::after{ box-sizing: border-box; }
-
-  html, body{
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    min-height: 100%;
-  }
-
-  body{
-    background: var(--lum-bg);
-    color: var(--lum-ink);
-    font-family: 'Roboto', -apple-system, BlinkMacSystemFont,
-                 "Segoe UI", Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
-    overflow-x: hidden;
-  }
-
-  /* =========================================================
-     SECTION
-     ========================================================= */
-
-  .reviews{
-    position: relative;
-    isolation: isolate;
-    width: 100%;
-    padding: 20px 0;
-    overflow: hidden;
-  }
-
-  .reviews::before{
-    content: "";
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 70% 60% at 50% 40%,
-        rgba(43, 179, 243, 0.055) 0%,
-        rgba(43, 179, 243, 0.012) 42%,
-        transparent 72%);
-    pointer-events: none;
-    z-index: -1;
-  }
-
-  /* =========================================================
-     TRACK
-     ========================================================= */
-
-  .reviews-track{
-    position: relative;
-    z-index: 1;
-    display: flex;
-    gap: 20px;
-
-    overflow-x: auto;
-
-    padding: 14px max(24px, 5vw) 28px;
-
-    scroll-snap-type: x mandatory;
-
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior-x: contain;
-    scrollbar-width: none;
-  }
-
-  .reviews-track::-webkit-scrollbar{ display: none; }
-
-  /* =========================================================
-     REVIEW CARD
-     ========================================================= */
-
-  .review-card{
-    flex: 0 0 auto;
-    width: min(400px, 82vw);
-
-    display: flex;
-    flex-direction: column;
-
-    background: var(--lum-card);
-    border: 1px solid rgba(20, 22, 26, 0.06);
-    border-radius: 22px;
-
-    box-shadow:
-      0 1px 2px rgba(20, 22, 26, 0.03),
-      0 10px 30px -14px rgba(24, 152, 214, 0.10);
-
-    scroll-snap-align: center;
-
-    opacity: 0.55;
-    transform: scale(0.97);
-    transform-origin: center center;
-
-    transition:
-      opacity .35s ease,
-      transform .35s ease,
-      border-color .35s ease,
-      box-shadow .35s ease;
-  }
-
-  .review-card.is-active{
-    opacity: 1;
-    transform: scale(1);
-    border-color: rgba(43, 179, 243, 0.35);
-
-    box-shadow:
-      0 1px 2px rgba(20, 22, 26, 0.03),
-      0 24px 50px -20px rgba(43, 179, 243, 0.28);
-  }
-
-  /* =========================================================
-     CARD BODY
-     ========================================================= */
-
-  .card-body{
-    padding: 28px 28px 22px;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .quote{
-    width: 34px;
-    height: 28px;
-    fill: var(--lum-blue);
-    opacity: 0.28;
-    margin-bottom: 16px;
-    display: block;
-  }
-
-  /* =========================================================
-     STARS
-     ========================================================= */
-
-  .stars{
-    position: relative;
-    display: inline-block;
-    font-size: 15px;
-    letter-spacing: 3px;
-    line-height: 1;
-    color: #E1E4E8;
-    margin-bottom: 16px;
-  }
-
-  .stars span{ white-space: nowrap; }
-
-  .stars i{
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    inset-inline-start: 0;
-    width: calc(var(--r) / 5 * 100%);
-    overflow: hidden;
-    white-space: nowrap;
-    color: var(--lum-star);
-    font-style: normal;
-  }
-
-  /* =========================================================
-     META
-     ========================================================= */
-
-  .review-meta{
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 10px;
-  }
-
-  .meta-chip{
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-
-    padding: 6px 12px;
-    border-radius: 999px;
-
-    background: rgba(43, 179, 243, 0.06);
-    border: 1px solid rgba(43, 179, 243, 0.14);
-    color: var(--lum-blue-deep);
-
-    font-size: 10.5px;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-
-    white-space: nowrap;
-    max-width: 100%;
-  }
-
-  .meta-chip svg{
-    width: 12px;
-    height: 12px;
-    flex: 0 0 12px;
-    display: block;
-  }
-
-  /* =========================================================
-     PRODUCT NAME
-     ========================================================= */
-
-  .review-product{
-    display: flex;
-    align-items: center;
-    gap: 8px;
-
-    margin: 0 0 16px;
-    padding: 0;
-
-    color: var(--lum-blue-deep);
-
-    font-size: 11.5px;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-  }
-
-  .review-product::before{
-    content: "";
-    width: 6px;
-    height: 6px;
-    flex: 0 0 6px;
-    border-radius: 50%;
-    background: var(--lum-blue);
-    box-shadow:
-      0 0 0 1px rgba(43, 179, 243, 0.30),
-      0 0 8px rgba(43, 179, 243, 0.45);
-  }
-
-  /* =========================================================
-     REVIEW TEXT
-     ========================================================= */
-
-  .review-text{
-    margin: 0;
-    font-size: 15px;
-    line-height: 1.75;
-    font-weight: 300;
-    letter-spacing: 0.005em;
-    color: var(--lum-muted);
-    text-align: left;
-    overflow-wrap: break-word;
-  }
-
-  /* =========================================================
-     CARD FOOTER
-     ========================================================= */
-
-  .card-foot{
-    margin-top: auto;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-
-    padding: 16px 28px;
-
-    background: rgba(43, 179, 243, 0.035);
-    border-top: 1px solid rgba(20, 22, 26, 0.05);
-    border-radius: 0 0 22px 22px;
-  }
-
-  .avatar{
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    object-fit: cover;
-    flex: 0 0 auto;
-    background: rgba(43, 179, 243, 0.08);
-    border: 1px solid rgba(43, 179, 243, 0.14);
-  }
-
-  .who{
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    min-width: 0;
-  }
-
-  .name{
-    margin: 0;
-    font-size: 15px;
-    font-weight: 500;
-    letter-spacing: -0.05px;
-    color: var(--lum-ink);
-  }
-
-  .city{
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 12px;
-    font-weight: 400;
-    color: var(--lum-muted);
-    letter-spacing: 0.02em;
-  }
-
-  /* ICON LOCATION BLEUE 9dam l'ville */
-  .city svg{
-    width: 12px;
-    height: 12px;
-    flex: 0 0 12px;
-    display: block;
-    stroke: var(--lum-blue);
-    fill: none;
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-
-  /* =========================================================
-     NAVIGATION
-     ========================================================= */
-
-  .reviews-nav{
-    position: relative;
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 22px;
-    margin-top: 4px;
-  }
-
-  .nav-btn{
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    border: 1px solid rgba(20, 22, 26, 0.06);
-    cursor: pointer;
-
-    background: #FFFFFF;
-    color: var(--lum-blue-deep);
-
-    box-shadow:
-      0 1px 2px rgba(20, 22, 26, 0.04),
-      0 8px 20px -10px rgba(24, 152, 214, 0.20);
-
-    display: grid;
-    place-items: center;
-
-    transition:
-      background .25s ease,
-      color .25s ease,
-      border-color .25s ease,
-      transform .2s ease;
-  }
-
-  .nav-btn:hover{
-    background: var(--lum-blue);
-    border-color: var(--lum-blue);
-    color: #FFFFFF;
-  }
-
-  .nav-btn:active{ transform: scale(0.94); }
-
-  .nav-btn svg{
-    width: 18px;
-    height: 18px;
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 2.2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-
-  /* =========================================================
-     DOTS — style DASHES bhal l'image, b bleu #2BB3F3
-     ========================================================= */
-
-  .reviews-dots{
-    display: flex;
-    gap: 8px;
-    align-items: center;
-  }
-
-  .dot{
-    width: 22px;
-    height: 4px;
-    border-radius: 2px;
-    border: 0;
-    padding: 0;
-    background: rgba(20, 22, 26, 0.18);
-    cursor: pointer;
-    transition: width .3s ease, background .3s ease;
-  }
-
-  .dot.is-active{
-    width: 44px;
-    background: var(--lum-blue);
-  }
-
-  /* =========================================================
-     RESPONSIVE
-     ========================================================= */
-
-  @media (max-width: 720px){
-    .reviews-track{
-      gap: 16px;
-      padding: 14px 20px 28px;
-    }
-
-    .card-body{ padding: 24px 22px 20px; }
-
-    .card-foot{ padding: 14px 22px; }
-
-    .review-text{ font-size: 14.5px; }
-
-    .meta-chip{
-      font-size: 10px;
-      padding: 5px 10px;
-      letter-spacing: 0.06em;
-    }
-
-    .meta-chip svg{ width: 11px; height: 11px; flex: 0 0 11px; }
-
-    .review-product{
-      font-size: 11px;
-      letter-spacing: 0.12em;
-    }
-  }
-
-  @media (max-width: 400px){
-    .reviews-track{
-      gap: 14px;
-      padding: 12px 16px 24px;
-    }
-
-    .review-card{ width: min(340px, 84vw); }
-
-    .card-body{ padding: 22px 20px 18px; }
-
-    .card-foot{ padding: 13px 20px; gap: 12px; }
-
-    .avatar{ width: 44px; height: 44px; }
-
-    .name{ font-size: 14.5px; }
-
-    .city{ font-size: 11.5px; }
-
-    .review-text{ font-size: 14px; line-height: 1.7; }
-
-    .meta-chip{
-      font-size: 9.5px;
-      letter-spacing: 0.04em;
-      padding: 5px 9px;
-      gap: 6px;
-    }
-
-    .review-product{
-      font-size: 10px;
-      letter-spacing: 0.1em;
-      margin-bottom: 14px;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    *, *::before, *::after{
-      transition: none !important;
-      scroll-behavior: auto !important;
-    }
-  }
+:root{--lum-blue:#2BB3F3;--lum-blue-deep:#1898D6;--lum-ink:#14161A;--lum-muted:#6E6E73;--lum-bg:#FAFAF8;--lum-card:#FFF;--lum-star:#F7B731}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0;width:100%;min-height:100%}
+body{background:var(--lum-bg);color:var(--lum-ink);font-family:'Roboto',-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;overflow-x:hidden}
+
+.reviews{position:relative;isolation:isolate;width:100%;padding:20px 0;overflow:hidden}
+.reviews::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 40%,rgba(43,179,243,.055) 0%,rgba(43,179,243,.012) 42%,transparent 72%);pointer-events:none;z-index:-1}
+
+.reviews-track{position:relative;z-index:1;display:flex;gap:20px;overflow-x:auto;padding:14px max(24px,5vw) 28px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;scrollbar-width:none}
+.reviews-track::-webkit-scrollbar{display:none}
+
+.review-card{flex:0 0 auto;width:min(400px,82vw);display:flex;flex-direction:column;background:var(--lum-card);border:1px solid rgba(20,22,26,.06);border-radius:22px;box-shadow:0 1px 2px rgba(20,22,26,.03),0 10px 30px -14px rgba(24,152,214,.10);scroll-snap-align:center;opacity:.55;transform:scale(.97);transform-origin:center center;contain:layout paint style;transition:opacity .35s ease,transform .35s ease,border-color .35s ease,box-shadow .35s ease}
+.review-card.is-active{opacity:1;transform:scale(1);border-color:rgba(43,179,243,.35);box-shadow:0 1px 2px rgba(20,22,26,.03),0 24px 50px -20px rgba(43,179,243,.28)}
+
+.card-body{padding:28px 28px 22px;display:flex;flex-direction:column}
+.quote{width:34px;height:28px;fill:var(--lum-blue);opacity:.28;margin-bottom:16px;display:block}
+
+.stars{position:relative;display:inline-block;font-size:15px;letter-spacing:3px;line-height:1;color:#E1E4E8;margin-bottom:16px}
+.stars span{white-space:nowrap}
+.stars i{position:absolute;top:0;bottom:0;inset-inline-start:0;width:calc(var(--r)/5*100%);overflow:hidden;white-space:nowrap;color:var(--lum-star);font-style:normal}
+
+.review-meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:10px}
+.meta-chip{display:inline-flex;align-items:center;gap:7px;padding:6px 12px;border-radius:999px;background:rgba(43,179,243,.06);border:1px solid rgba(43,179,243,.14);color:var(--lum-blue-deep);font-size:10.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;max-width:100%}
+.meta-chip svg{width:12px;height:12px;flex:0 0 12px;display:block}
+
+.review-product{display:flex;align-items:center;gap:8px;margin:0 0 16px;padding:0;color:var(--lum-blue-deep);font-size:11.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase}
+.review-product::before{content:"";width:6px;height:6px;flex:0 0 6px;border-radius:50%;background:var(--lum-blue);box-shadow:0 0 0 1px rgba(43,179,243,.30),0 0 8px rgba(43,179,243,.45)}
+
+.review-text{margin:0;font-size:15px;line-height:1.75;font-weight:300;letter-spacing:.005em;color:var(--lum-muted);text-align:left;overflow-wrap:break-word}
+
+.card-foot{margin-top:auto;display:flex;align-items:center;gap:14px;padding:16px 28px;background:rgba(43,179,243,.035);border-top:1px solid rgba(20,22,26,.05);border-radius:0 0 22px 22px}
+.avatar{width:48px;height:48px;border-radius:50%;object-fit:cover;flex:0 0 auto;background:rgba(43,179,243,.08);border:1px solid rgba(43,179,243,.14)}
+.who{display:flex;flex-direction:column;gap:2px;min-width:0}
+.name{margin:0;font-size:15px;font-weight:500;letter-spacing:-.05px;color:var(--lum-ink)}
+.city{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:400;color:var(--lum-muted);letter-spacing:.02em}
+.city svg{width:12px;height:12px;flex:0 0 12px;display:block;stroke:var(--lum-blue);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+.reviews-nav{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:22px;margin-top:4px}
+.nav-btn{width:44px;height:44px;border-radius:50%;border:1px solid rgba(20,22,26,.06);cursor:pointer;background:#FFF;color:var(--lum-blue-deep);box-shadow:0 1px 2px rgba(20,22,26,.04),0 8px 20px -10px rgba(24,152,214,.20);display:grid;place-items:center;transition:background .25s ease,color .25s ease,border-color .25s ease,transform .2s ease}
+.nav-btn:hover{background:var(--lum-blue);border-color:var(--lum-blue);color:#FFF}
+.nav-btn:active{transform:scale(.94)}
+.nav-btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+
+.reviews-dots{display:flex;gap:8px;align-items:center}
+.dot{width:22px;height:4px;border-radius:2px;border:0;padding:0;background:rgba(20,22,26,.18);cursor:pointer;transition:width .3s ease,background .3s ease}
+.dot.is-active{width:44px;background:var(--lum-blue)}
+
+@media(max-width:720px){
+.reviews-track{gap:16px;padding:14px 20px 28px}
+.card-body{padding:24px 22px 20px}
+.card-foot{padding:14px 22px}
+.review-text{font-size:14.5px}
+.meta-chip{font-size:10px;padding:5px 10px;letter-spacing:.06em}
+.meta-chip svg{width:11px;height:11px;flex:0 0 11px}
+.review-product{font-size:11px;letter-spacing:.12em}
+}
+@media(max-width:400px){
+.reviews-track{gap:14px;padding:12px 16px 24px}
+.review-card{width:min(340px,84vw)}
+.card-body{padding:22px 20px 18px}
+.card-foot{padding:13px 20px;gap:12px}
+.avatar{width:44px;height:44px}
+.name{font-size:14.5px}
+.city{font-size:11.5px}
+.review-text{font-size:14px;line-height:1.7}
+.meta-chip{font-size:9.5px;letter-spacing:.04em;padding:5px 9px;gap:6px}
+.review-product{font-size:10px;letter-spacing:.1em;margin-bottom:14px}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
 
 <body>
+
+<!-- SVG SPRITE : kol icon m3arrafa merra wa7da w kat-stakhdem b <use> -->
+<svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
+  <symbol id="rq" viewBox="0 0 40 32"><path d="M16 0C7.2 0 0 7.2 0 16v16h16V16H8c0-4.4 3.6-8 8-8V0z"/><path d="M16 0C7.2 0 0 7.2 0 16v16h16V16H8c0-4.4 3.6-8 8-8V0z" transform="translate(24 0)"/></symbol>
+  <symbol id="rc" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 7.5V12l3 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="rp" viewBox="0 0 24 24"><path d="M12 21s-6-5.1-6-10a6 6 0 1 1 12 0c0 4.9-6 10-6 10z"/><circle cx="12" cy="11" r="2.4"/></symbol>
+</svg>
 
 <section class="reviews" aria-label="Avis clients">
 
@@ -494,189 +102,95 @@
 
     <article class="review-card" dir="ltr">
       <div class="card-body">
-        <svg class="quote" viewBox="0 0 40 32" aria-hidden="true">
-          <path d="M16 0C7.2 0 0 7.2 0 16v16h16V16H8c0-4.4 3.6-8 8-8V0z"/>
-          <path d="M16 0C7.2 0 0 7.2 0 16v16h16V16H8c0-4.4 3.6-8 8-8V0z" transform="translate(24 0)"/>
-        </svg>
-        <div class="stars" style="--r:5" role="img" aria-label="Note : 5 sur 5">
-          <span aria-hidden="true">★★★★★</span>
-          <i aria-hidden="true">★★★★★</i>
-        </div>
+        <svg class="quote" aria-hidden="true"><use href="#rq"/></svg>
+        <div class="stars" style="--r:5" role="img" aria-label="Note : 5 sur 5"><span aria-hidden="true">★★★★★</span><i aria-hidden="true">★★★★★</i></div>
         <div class="review-meta">
-          <span class="meta-chip">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.8"/>
-              <path d="M12 7.5V12l3 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <span>4 mois d'utilisation</span>
-          </span>
+          <span class="meta-chip"><svg aria-hidden="true"><use href="#rc"/></svg><span>4 mois d'utilisation</span></span>
         </div>
         <span class="review-product">Routine DermaCare</span>
-        <p class="review-text" dir="auto">
-          C’est un super produit avec une équipe de support professionnelle.
-          J’ai hâte de découvrir les futures fonctionnalités.
-        </p>
+        <p class="review-text" dir="auto">C’est un super produit avec une équipe de support professionnelle. J’ai hâte de découvrir les futures fonctionnalités.</p>
       </div>
       <footer class="card-foot">
-        <img class="avatar" src="https://i.postimg.cc/8JnLS6bv/Review-Avatar-1.webp"
-             alt="Photo de Samira" width="48" height="48" loading="lazy" decoding="async">
+        <img class="avatar" src="https://i.postimg.cc/8JnLS6bv/Review-Avatar-1.webp" alt="Photo de Samira" width="48" height="48" loading="lazy" decoding="async">
         <div class="who">
           <h3 class="name">Samira</h3>
-          <span class="city">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.1-6-10a6 6 0 1 1 12 0c0 4.9-6 10-6 10z"/><circle cx="12" cy="11" r="2.4"/></svg>
-            Agadir
-          </span>
+          <span class="city"><svg aria-hidden="true"><use href="#rp"/></svg>Agadir</span>
         </div>
       </footer>
     </article>
 
     <article class="review-card" dir="ltr">
       <div class="card-body">
-        <svg class="quote" viewBox="0 0 40 32" aria-hidden="true">
-          <path d="M16 0C7.2 0 0 7.2 0 16v16h16V16H8c0-4.4 3.6-8 8-8V0z"/>
-          <path d="M16 0C7.2 0 0 7.2 0 16v16h16V16H8c0-4.4 3.6-8 8-8V0z" transform="translate(24 0)"/>
-        </svg>
-        <div class="stars" style="--r:5" role="img" aria-label="Note : 5 sur 5">
-          <span aria-hidden="true">★★★★★</span>
-          <i aria-hidden="true">★★★★★</i>
-        </div>
+        <svg class="quote" aria-hidden="true"><use href="#rq"/></svg>
+        <div class="stars" style="--r:5" role="img" aria-label="Note : 5 sur 5"><span aria-hidden="true">★★★★★</span><i aria-hidden="true">★★★★★</i></div>
         <div class="review-meta">
-          <span class="meta-chip">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.8"/>
-              <path d="M12 7.5V12l3 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <span>3 mois d'utilisation</span>
-          </span>
+          <span class="meta-chip"><svg aria-hidden="true"><use href="#rc"/></svg><span>3 mois d'utilisation</span></span>
         </div>
         <span class="review-product">Routine DermaCare</span>
-        <p class="review-text" lang="ar" dir="auto">
-          منتج رائع مع فريق دعم محترف. أتطلع بشغف لرؤية الميزات المستقبلية.
-        </p>
+        <p class="review-text" lang="ar" dir="auto">منتج رائع مع فريق دعم محترف. أتطلع بشغف لرؤية الميزات المستقبلية.</p>
       </div>
       <footer class="card-foot">
-        <img class="avatar" src="https://i.postimg.cc/ftgYN9vX/Review-Avatar-2.webp"
-             alt="Photo de Roaa" width="48" height="48" loading="lazy" decoding="async">
+        <img class="avatar" src="https://i.postimg.cc/ftgYN9vX/Review-Avatar-2.webp" alt="Photo de Roaa" width="48" height="48" loading="lazy" decoding="async">
         <div class="who">
           <h3 class="name">Roaa</h3>
-          <span class="city">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.1-6-10a6 6 0 1 1 12 0c0 4.9-6 10-6 10z"/><circle cx="12" cy="11" r="2.4"/></svg>
-            Casablanca
-          </span>
+          <span class="city"><svg aria-hidden="true"><use href="#rp"/></svg>Casablanca</span>
         </div>
       </footer>
     </article>
 
     <article class="review-card" dir="ltr">
       <div class="card-body">
-        <svg class="quote" viewBox="0 0 40 32" aria-hidden="true">
-          <path d="M16 0C7.2 0 0 7.2 0 16v16h16V16H8c0-4.4 3.6-8 8-8V0z"/>
-          <path d="M16 0C7.2 0 0 7.2 0 16v16h16V16H8c0-4.4 3.6-8 8-8V0z" transform="translate(24 0)"/>
-        </svg>
-        <div class="stars" style="--r:4.5" role="img" aria-label="Note : 4,5 sur 5">
-          <span aria-hidden="true">★★★★★</span>
-          <i aria-hidden="true">★★★★★</i>
-        </div>
+        <svg class="quote" aria-hidden="true"><use href="#rq"/></svg>
+        <div class="stars" style="--r:4.5" role="img" aria-label="Note : 4,5 sur 5"><span aria-hidden="true">★★★★★</span><i aria-hidden="true">★★★★★</i></div>
         <div class="review-meta">
-          <span class="meta-chip">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.8"/>
-              <path d="M12 7.5V12l3 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <span>6 mois d'utilisation</span>
-          </span>
+          <span class="meta-chip"><svg aria-hidden="true"><use href="#rc"/></svg><span>6 mois d'utilisation</span></span>
         </div>
         <span class="review-product">Routine DermaCare</span>
-        <p class="review-text" dir="auto">
-          Le meilleur outil pour exporter et obtenir les bons résultats,
-          rapidement et gratuitement.
-        </p>
+        <p class="review-text" dir="auto">Le meilleur outil pour exporter et obtenir les bons résultats, rapidement et gratuitement.</p>
       </div>
       <footer class="card-foot">
-        <img class="avatar" src="https://i.postimg.cc/k6hWmbyW/Review-Avatar-3.webp"
-             alt="Photo de Abir" width="48" height="48" loading="lazy" decoding="async">
+        <img class="avatar" src="https://i.postimg.cc/k6hWmbyW/Review-Avatar-3.webp" alt="Photo de Abir" width="48" height="48" loading="lazy" decoding="async">
         <div class="who">
           <h3 class="name">Abir</h3>
-          <span class="city">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.1-6-10a6 6 0 1 1 12 0c0 4.9-6 10-6 10z"/><circle cx="12" cy="11" r="2.4"/></svg>
-            Oujda
-          </span>
+          <span class="city"><svg aria-hidden="true"><use href="#rp"/></svg>Oujda</span>
         </div>
       </footer>
     </article>
 
     <article class="review-card" dir="ltr">
       <div class="card-body">
-        <svg class="quote" viewBox="0 0 40 32" aria-hidden="true">
-          <path d="M16 0C7.2 0 0 7.2 0 16v16h16V16H8c0-4.4 3.6-8 8-8V0z"/>
-          <path d="M16 0C7.2 0 0 7.2 0 16v16h16V16H8c0-4.4 3.6-8 8-8V0z" transform="translate(24 0)"/>
-        </svg>
-        <div class="stars" style="--r:5" role="img" aria-label="Note : 5 sur 5">
-          <span aria-hidden="true">★★★★★</span>
-          <i aria-hidden="true">★★★★★</i>
-        </div>
+        <svg class="quote" aria-hidden="true"><use href="#rq"/></svg>
+        <div class="stars" style="--r:5" role="img" aria-label="Note : 5 sur 5"><span aria-hidden="true">★★★★★</span><i aria-hidden="true">★★★★★</i></div>
         <div class="review-meta">
-          <span class="meta-chip">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.8"/>
-              <path d="M12 7.5V12l3 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <span>2 mois d'utilisation</span>
-          </span>
+          <span class="meta-chip"><svg aria-hidden="true"><use href="#rc"/></svg><span>2 mois d'utilisation</span></span>
         </div>
         <span class="review-product">Routine DermaCare</span>
-        <p class="review-text" dir="auto">
-          Nous cherchions un produit comme celui-ci depuis la création
-          de notre entreprise.
-        </p>
+        <p class="review-text" dir="auto">Nous cherchions un produit comme celui-ci depuis la création de notre entreprise.</p>
       </div>
       <footer class="card-foot">
-        <img class="avatar" src="https://i.postimg.cc/47Fpg91V/Review-Avatar-4.webp"
-             alt="Photo de Salma" width="48" height="48" loading="lazy" decoding="async">
+        <img class="avatar" src="https://i.postimg.cc/47Fpg91V/Review-Avatar-4.webp" alt="Photo de Salma" width="48" height="48" loading="lazy" decoding="async">
         <div class="who">
           <h3 class="name">Salma</h3>
-          <span class="city">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.1-6-10a6 6 0 1 1 12 0c0 4.9-6 10-6 10z"/><circle cx="12" cy="11" r="2.4"/></svg>
-            Rabat
-          </span>
+          <span class="city"><svg aria-hidden="true"><use href="#rp"/></svg>Rabat</span>
         </div>
       </footer>
     </article>
 
     <article class="review-card" dir="ltr">
       <div class="card-body">
-        <svg class="quote" viewBox="0 0 40 32" aria-hidden="true">
-          <path d="M16 0C7.2 0 0 7.2 0 16v16h16V16H8c0-4.4 3.6-8 8-8V0z"/>
-          <path d="M16 0C7.2 0 0 7.2 0 16v16h16V16H8c0-4.4 3.6-8 8-8V0z" transform="translate(24 0)"/>
-        </svg>
-        <div class="stars" style="--r:4.5" role="img" aria-label="Note : 4,5 sur 5">
-          <span aria-hidden="true">★★★★★</span>
-          <i aria-hidden="true">★★★★★</i>
-        </div>
+        <svg class="quote" aria-hidden="true"><use href="#rq"/></svg>
+        <div class="stars" style="--r:4.5" role="img" aria-label="Note : 4,5 sur 5"><span aria-hidden="true">★★★★★</span><i aria-hidden="true">★★★★★</i></div>
         <div class="review-meta">
-          <span class="meta-chip">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.8"/>
-              <path d="M12 7.5V12l3 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <span>5 mois d'utilisation</span>
-          </span>
+          <span class="meta-chip"><svg aria-hidden="true"><use href="#rc"/></svg><span>5 mois d'utilisation</span></span>
         </div>
         <span class="review-product">Routine DermaCare</span>
-        <p class="review-text" lang="ar" dir="auto">
-          خدمة ممتازة وسهلة الاستعمال، أنصح بها بشدة لكل من يبحث
-          عن الجودة والاحترافية.
-        </p>
+        <p class="review-text" lang="ar" dir="auto">خدمة ممتازة وسهلة الاستعمال، أنصح بها بشدة لكل من يبحث عن الجودة والاحترافية.</p>
       </div>
       <footer class="card-foot">
-        <img class="avatar" src="https://i.postimg.cc/Fkd3sHPz/Review-Avatar-5.webp"
-             alt="Photo de Fatima Zahra" width="48" height="48" loading="lazy" decoding="async">
+        <img class="avatar" src="https://i.postimg.cc/Fkd3sHPz/Review-Avatar-5.webp" alt="Photo de Fatima Zahra" width="48" height="48" loading="lazy" decoding="async">
         <div class="who">
           <h3 class="name">Fatima Zahra</h3>
-          <span class="city">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.1-6-10a6 6 0 1 1 12 0c0 4.9-6 10-6 10z"/><circle cx="12" cy="11" r="2.4"/></svg>
-            Mohammedia
-          </span>
+          <span class="city"><svg aria-hidden="true"><use href="#rp"/></svg>Mohammedia</span>
         </div>
       </footer>
     </article>
@@ -699,144 +213,121 @@
 (function(){
   'use strict';
 
-  var track     = document.getElementById('reviews-track');
-  var cards     = Array.prototype.slice.call(track.querySelectorAll('.review-card'));
-  var dotsWrap  = document.getElementById('reviews-dots');
-  var prev      = document.getElementById('reviews-prev');
-  var next      = document.getElementById('reviews-next');
+  var track=document.getElementById('reviews-track');
+  var cards=Array.prototype.slice.call(track.querySelectorAll('.review-card'));
+  var dotsWrap=document.getElementById('reviews-dots');
+  var prev=document.getElementById('reviews-prev');
+  var next=document.getElementById('reviews-next');
 
-  var reduce    = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var behavior  = reduce ? 'auto' : 'smooth';
-  var current   = -1;
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var behavior=reduce?'auto':'smooth';
+  var current=-1;
 
-  cards.forEach(function(card, i){
-    var dot = document.createElement('button');
-    dot.className = 'dot';
-    dot.type = 'button';
-    dot.setAttribute('aria-label', 'Aller à l’avis ' + (i + 1));
-    dot.addEventListener('click', function(){ goTo(i); });
+  cards.forEach(function(card,i){
+    var dot=document.createElement('button');
+    dot.className='dot';
+    dot.type='button';
+    dot.setAttribute('aria-label','Aller à l’avis '+(i+1));
+    dot.addEventListener('click',function(){goTo(i);});
     dotsWrap.appendChild(dot);
   });
 
-  var dots = Array.prototype.slice.call(dotsWrap.children);
+  var dots=Array.prototype.slice.call(dotsWrap.children);
 
   function activeIndex(){
-    var maxScroll = track.scrollWidth - track.clientWidth;
+    var maxScroll=track.scrollWidth-track.clientWidth;
+    if(maxScroll<=0)return 0;
+    if(track.scrollLeft<=2)return 0;
+    if(track.scrollLeft>=maxScroll-2)return cards.length-1;
 
-    if (maxScroll <= 0) return 0;
-    if (track.scrollLeft <= 2) return 0;
-    if (track.scrollLeft >= maxScroll - 2) return cards.length - 1;
+    var trackRect=track.getBoundingClientRect();
+    var viewportCenter=trackRect.left+track.clientWidth/2;
+    var best=0,bestDist=Infinity;
 
-    var trackRect = track.getBoundingClientRect();
-    var viewportCenter = trackRect.left + track.clientWidth / 2;
-
-    var best = 0, bestDist = Infinity;
-
-    cards.forEach(function(card, i){
-      var rect = card.getBoundingClientRect();
-      var d = Math.abs(rect.left + rect.width / 2 - viewportCenter);
-      if(d < bestDist){ bestDist = d; best = i; }
+    cards.forEach(function(card,i){
+      var rect=card.getBoundingClientRect();
+      var d=Math.abs(rect.left+rect.width/2-viewportCenter);
+      if(d<bestDist){bestDist=d;best=i;}
     });
-
     return best;
   }
 
   function goTo(i){
-    var card = cards[i];
-    if(!card) return;
-
-    var targetScroll = card.offsetLeft - (track.clientWidth - card.offsetWidth) / 2;
-
-    var maxScroll = track.scrollWidth - track.clientWidth;
-    if (targetScroll < 0) targetScroll = 0;
-    if (targetScroll > maxScroll) targetScroll = maxScroll;
-
-    track.scrollTo({ left: targetScroll, behavior: behavior });
+    var card=cards[i];
+    if(!card)return;
+    var targetScroll=card.offsetLeft-(track.clientWidth-card.offsetWidth)/2;
+    var maxScroll=track.scrollWidth-track.clientWidth;
+    if(targetScroll<0)targetScroll=0;
+    if(targetScroll>maxScroll)targetScroll=maxScroll;
+    track.scrollTo({left:targetScroll,behavior:behavior});
   }
 
   function update(){
-    var i = activeIndex();
-    if(i === current) return;
-    current = i;
-
-    cards.forEach(function(c, j){ c.classList.toggle('is-active', j === i); });
-    dots.forEach(function(d, j){ d.classList.toggle('is-active', j === i); });
-
+    var i=activeIndex();
+    if(i===current)return;
+    current=i;
+    cards.forEach(function(c,j){c.classList.toggle('is-active',j===i);});
+    dots.forEach(function(d,j){d.classList.toggle('is-active',j===i);});
     scheduleHeightUpdate();
   }
 
-  var ticking = false;
-  track.addEventListener('scroll', function(){
-    if(ticking) return;
-    ticking = true;
-    requestAnimationFrame(function(){ update(); ticking = false; });
-  }, { passive: true });
+  var ticking=false;
+  track.addEventListener('scroll',function(){
+    if(ticking)return;
+    ticking=true;
+    requestAnimationFrame(function(){update();ticking=false;});
+  },{passive:true});
 
-  prev.addEventListener('click', function(){ goTo(Math.max(0, current - 1)); });
-  next.addEventListener('click', function(){ goTo(Math.min(cards.length - 1, current + 1)); });
+  prev.addEventListener('click',function(){goTo(Math.max(0,current-1));});
+  next.addEventListener('click',function(){goTo(Math.min(cards.length-1,current+1));});
 
   update();
 
-  /* =========================================================
-     IFRAME AUTO HEIGHT
-     ========================================================= */
-
-  var lastHeight  = 0;
-  var heightTimer = null;
+  /* IFRAME AUTO HEIGHT */
+  var lastHeight=0,heightTimer=null;
 
   function getRealHeight(){
-    var body = document.body;
-    var html = document.documentElement;
-
+    var body=document.body,html=document.documentElement;
     return Math.max(
-      body ? body.scrollHeight : 0,
-      body ? body.offsetHeight : 0,
-      html ? html.scrollHeight : 0,
-      html ? html.offsetHeight : 0,
-      html ? html.clientHeight : 0
+      body?body.scrollHeight:0,
+      body?body.offsetHeight:0,
+      html?html.scrollHeight:0,
+      html?html.offsetHeight:0,
+      html?html.clientHeight:0
     );
   }
 
   function sendHeight(){
-    var height = getRealHeight();
-    if(!height || height <= 0) return;
-    if(Math.abs(height - lastHeight) < 1) return;
-
-    lastHeight = height;
-
-    window.parent.postMessage(
-      { type: 'luminelleReviewsHeight', height: Math.ceil(height) },
-      '*'
-    );
+    var height=getRealHeight();
+    if(!height||height<=0)return;
+    if(Math.abs(height-lastHeight)<1)return;
+    lastHeight=height;
+    window.parent.postMessage({type:'luminelleReviewsHeight',height:Math.ceil(height)},'*');
   }
 
   function scheduleHeightUpdate(){
     clearTimeout(heightTimer);
-    heightTimer = setTimeout(sendHeight, 30);
+    heightTimer=setTimeout(sendHeight,30);
   }
 
   if('ResizeObserver' in window){
-    var ro = new ResizeObserver(function(){ scheduleHeightUpdate(); });
+    var ro=new ResizeObserver(function(){scheduleHeightUpdate();});
     ro.observe(document.documentElement);
     ro.observe(document.body);
   }
 
-  window.addEventListener('resize', function(){
-    requestAnimationFrame(function(){
-      update();
-      scheduleHeightUpdate();
-    });
+  window.addEventListener('resize',function(){
+    requestAnimationFrame(function(){update();scheduleHeightUpdate();});
   });
 
-  window.addEventListener('load', function(){
+  window.addEventListener('load',function(){
     sendHeight();
-    setTimeout(sendHeight, 100);
-    setTimeout(sendHeight, 300);
-    setTimeout(sendHeight, 700);
+    setTimeout(sendHeight,100);
+    setTimeout(sendHeight,300);
+    setTimeout(sendHeight,700);
   });
 
   sendHeight();
-
 })();
 </script>
 
