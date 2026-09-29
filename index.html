@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Avis clients — LUMINELLE LAB</title>
 
-<!-- Poppins -->
+<!-- Roboto -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
   :root{
@@ -34,8 +34,8 @@
   body{
     background: var(--lum-bg);
     color: var(--lum-ink);
-    font-family: 'Poppins', -apple-system, BlinkMacSystemFont,
-                 "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: 'Roboto', -apple-system, BlinkMacSystemFont,
+                 "Segoe UI", Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
@@ -68,7 +68,7 @@
   }
 
   /* =========================================================
-     TRACK — small padding + center snap
+     TRACK
      ========================================================= */
 
   .reviews-track{
@@ -79,7 +79,6 @@
 
     overflow-x: auto;
 
-    /* small padding = no empty gap at start/end */
     padding: 14px max(24px, 5vw) 28px;
 
     scroll-snap-type: x mandatory;
@@ -92,7 +91,7 @@
   .reviews-track::-webkit-scrollbar{ display: none; }
 
   /* =========================================================
-     REVIEW CARD — center snap so active is centered
+     REVIEW CARD
      ========================================================= */
 
   .review-card{
@@ -110,7 +109,6 @@
       0 1px 2px rgba(20, 22, 26, 0.03),
       0 10px 30px -14px rgba(24, 152, 214, 0.10);
 
-    /* ---------- CENTER SNAP ---------- */
     scroll-snap-align: center;
 
     opacity: 0.55;
@@ -182,7 +180,7 @@
   }
 
   /* =========================================================
-     META — période
+     META
      ========================================================= */
 
   .review-meta{
@@ -320,16 +318,17 @@
     letter-spacing: 0.02em;
   }
 
-  .city::before{
-    content: "";
-    width: 5px;
-    height: 5px;
-    flex: 0 0 5px;
-    border-radius: 50%;
-    background: var(--lum-blue);
-    box-shadow:
-      0 0 0 1px rgba(43, 179, 243, 0.30),
-      0 0 6px rgba(43, 179, 243, 0.45);
+  /* ICON LOCATION BLEUE 9dam l'ville */
+  .city svg{
+    width: 12px;
+    height: 12px;
+    flex: 0 0 12px;
+    display: block;
+    stroke: var(--lum-blue);
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
   }
 
   /* =========================================================
@@ -389,32 +388,29 @@
   }
 
   /* =========================================================
-     DOTS
+     DOTS — style DASHES bhal l'image, b bleu #2BB3F3
      ========================================================= */
 
   .reviews-dots{
     display: flex;
-    gap: 10px;
+    gap: 8px;
     align-items: center;
   }
 
   .dot{
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
+    width: 22px;
+    height: 4px;
+    border-radius: 2px;
     border: 0;
     padding: 0;
-    background: rgba(20, 22, 26, 0.16);
+    background: rgba(20, 22, 26, 0.18);
     cursor: pointer;
-    transition: transform .25s ease, background .25s ease, box-shadow .25s ease;
+    transition: width .3s ease, background .3s ease;
   }
 
   .dot.is-active{
+    width: 44px;
     background: var(--lum-blue);
-    transform: scale(1.3);
-    box-shadow:
-      0 0 0 1px rgba(43, 179, 243, 0.30),
-      0 0 10px rgba(43, 179, 243, 0.55);
   }
 
   /* =========================================================
@@ -526,7 +522,10 @@
              alt="Photo de Samira" width="48" height="48" loading="lazy" decoding="async">
         <div class="who">
           <h3 class="name">Samira</h3>
-          <span class="city">Agadir</span>
+          <span class="city">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.1-6-10a6 6 0 1 1 12 0c0 4.9-6 10-6 10z"/><circle cx="12" cy="11" r="2.4"/></svg>
+            Agadir
+          </span>
         </div>
       </footer>
     </article>
@@ -560,7 +559,10 @@
              alt="Photo de Roaa" width="48" height="48" loading="lazy" decoding="async">
         <div class="who">
           <h3 class="name">Roaa</h3>
-          <span class="city">Casablanca</span>
+          <span class="city">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.1-6-10a6 6 0 1 1 12 0c0 4.9-6 10-6 10z"/><circle cx="12" cy="11" r="2.4"/></svg>
+            Casablanca
+          </span>
         </div>
       </footer>
     </article>
@@ -595,7 +597,10 @@
              alt="Photo de Abir" width="48" height="48" loading="lazy" decoding="async">
         <div class="who">
           <h3 class="name">Abir</h3>
-          <span class="city">Oujda</span>
+          <span class="city">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.1-6-10a6 6 0 1 1 12 0c0 4.9-6 10-6 10z"/><circle cx="12" cy="11" r="2.4"/></svg>
+            Oujda
+          </span>
         </div>
       </footer>
     </article>
@@ -630,7 +635,10 @@
              alt="Photo de Salma" width="48" height="48" loading="lazy" decoding="async">
         <div class="who">
           <h3 class="name">Salma</h3>
-          <span class="city">Rabat</span>
+          <span class="city">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.1-6-10a6 6 0 1 1 12 0c0 4.9-6 10-6 10z"/><circle cx="12" cy="11" r="2.4"/></svg>
+            Rabat
+          </span>
         </div>
       </footer>
     </article>
@@ -665,7 +673,10 @@
              alt="Photo de Fatima Zahra" width="48" height="48" loading="lazy" decoding="async">
         <div class="who">
           <h3 class="name">Fatima Zahra</h3>
-          <span class="city">Mohammedia</span>
+          <span class="city">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.1-6-10a6 6 0 1 1 12 0c0 4.9-6 10-6 10z"/><circle cx="12" cy="11" r="2.4"/></svg>
+            Mohammedia
+          </span>
         </div>
       </footer>
     </article>
@@ -709,10 +720,6 @@
 
   var dots = Array.prototype.slice.call(dotsWrap.children);
 
-  /* ---------- ACTIVE ----------
-     - at scroll extremes → first / last card wins
-     - otherwise → card closest to viewport center wins
-  --------------------------------- */
   function activeIndex(){
     var maxScroll = track.scrollWidth - track.clientWidth;
 
@@ -734,7 +741,6 @@
     return best;
   }
 
-  /* ---------- GO TO ---------- */
   function goTo(i){
     var card = cards[i];
     if(!card) return;
@@ -748,7 +754,6 @@
     track.scrollTo({ left: targetScroll, behavior: behavior });
   }
 
-  /* ---------- UPDATE ---------- */
   function update(){
     var i = activeIndex();
     if(i === current) return;
